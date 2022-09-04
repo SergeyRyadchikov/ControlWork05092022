@@ -3,30 +3,46 @@
 либо задать на старте выполнения алгоритма. При решении не рекомендуется пользоваться коллекциями, 
 лучше обойтись исключительно массивами. */
 
-Console.Write("Введите массив через запятую: ");
-string enter = Console.ReadLine();
-Console.Write("Укажите максимальное количество символов для элемента нового массива: ");
-int maxElementLength = Convert.ToInt32(Console.ReadLine());
-string[] mass = enter.Split(",");
-int count = 0;
-for (int i = 0; i < mass.Length; i++)
+
+/* Метод создает новый массив размерности, соответствующей количеству элементов заданой длины, 
+заполняет его и возвращает */
+string[] ArrayOfElementsGivenLength(string[] array, int maxElementLength)
 {
-    if (mass[i].Length <= maxElementLength) count++;
+    int count = 0;
+    for (int i = 0; i < array.Length; i++)
+    {
+        if (array[i].Length <= maxElementLength) count++;
+    }
+
+    string[] newArray = new string[count];
+
+    int index = 0;
+    for (int i = 0; i < array.Length; i++)
+    {
+        if (array[i].Length <= maxElementLength)
+        {
+            newArray[index] = array[i];
+            index++;
+        }
+    }
+    return newArray;
 }
 
-string[] newMass = new string[count];
-
-int index = 0;
-for (int j = 0; j < mass.Length; j++)
+/* Метод выводит массив в консоль */
+void PrintArray(string[] array)
 {
-    if (mass[j].Length <= 3)
+    for (int i = 0; i < array.Length; i++)
     {
-        newMass[index] = mass[j];
-        index++;
+        Console.Write($"{array[i]}    ");
     }
 }
 
-for (int i = 0; i < newMass.Length; i++)
-{
-    Console.Write($"{newMass[i]}    ");
-}
+Console.Write("Введите массив через запятую: ");
+string enter = Console.ReadLine();
+Console.Write("Укажите максимальное количество символов для элемента нового массива: ");
+int elementLength = Convert.ToInt32(Console.ReadLine());
+string[] massive = enter.Split(",");
+
+string[] newMassive = ArrayOfElementsGivenLength(massive, elementLength);
+Console.WriteLine($"Массив из элементов не более {elementLength}-х символов: ");
+PrintArray(newMassive);
